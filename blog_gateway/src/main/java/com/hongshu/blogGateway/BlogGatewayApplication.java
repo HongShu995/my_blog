@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * Author: HongShu995
  * Date: 2023/5/6
+ * @author wyb
  */
 @SpringBootApplication
 public class BlogGatewayApplication {
