@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hongshu.dao.BlogDao">
+
+    <select id="countBlogBacks" resultType="java.lang.Integer">
+        SELECT
+        count(DISTINCT a.id)
+        from
+        tb_blog a
+        LEFT JOIN tb_blog_tag tat on  a.id = tat.blog_id
+        <where>
+            is_delete = #{condition.isDelete}
+            <if test="condition.keywords != null">
+                and blog_title like concat('%',#{condition.keywords},'%')
+            </if>
+            <if test="condition.status != null">
+                and `status` = #{condition.status}
+            </if>
+            <if test="condition.categoryId != null">
+                and blog_id = #{condition.categoryId}
+            </if>
+            <if test="condition.type != null">
+                and type = #{condition.type}
+            </if>
+            <if test="condition.tagId != null">
+                and tat.tag_id = #{condition.tagId}
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="blogBackResultMap" type="com.hongshu.dto.BlogBackDTO">
+        <id column="id" property="id"/>
+        <result column="blog_cover" property="blogCover"/>
+        <result column="blog_title" property="blogTitle"/>
+        <result column="create_time" property="createTime"/>
+        <result column="type" property="type"/>
+        <result column="is_top" property="isTop"/>
+        <result column="is_delete" property="isDelete"/>
+        <result column="status" property="status"/>
+        <result column="category_name" property="categoryName"/>
+        <collection property="tagDTOList" ofType="com.hongshu.dto.TagDTO">
+            <id column="tag_id" property="id"/>
+            <result column="tag_name" property="tagName"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="blogHomeResultMap" type="com.hongshu.dto.BlogHomeDTO">
+        <id column="id" property="id"/>
+        <result column="blog_cover" property="blogCover"/>
+        <result column="blog_title" property="blogTitle"/>
+        <result column="blog_content" property="blogContent"/>
+        <result column="create_time" property="createTime"/>
+        <result column="type" property="type"/>
+        <result column="is_top" property="isTop"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="category_name" property="categoryName"/>
+        <collection property="tagDTOList" ofType="com.hongshu.dto.TagDTO">
+            <id column="tag_id" property="id"/>
+            <result column="tag_name" property="tagName"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="blogResultMap" type="com.hongshu.dto.BlogDTO">
+        <id column="id" property="id"/>
+        <result column="blog_cover" property="blogCover"/>
+        <result column="blog_title" property="blogTitle"/>
+        <result column="blog_content" property="blogContent"/>
+        <result column="type" property="type"/>
+        <result column="author" property="author"/>
+        <result column="original_url" property="originalUrl"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="category_name" property="categoryName"/>
+        <collection property="tagDTOList" ofType="com.hongshu.dto.TagDTO">
+            <id column="tag_id" property="id"/>
+            <result column="tag_name" property="tagName"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="blogPreviewResultMap" type="com.hongshu.dto.BlogPreviewDTO">
+        <id column="id" property="id"/>
+        <result column="blog_cover" property="blogCover"/>
+        <result column="blog_title" property="blogTitle"/>
+        <result column="create_time" property="createTime"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="category_name" property="categoryName"/>
+        <collection property="tagDTOList" ofType="com.hongshu.dto.TagDTO">
+            <id column="tag_id" property="id"/>
+            <result column="tag_name" property="tagName"/>
+        </collection>
+    </resultMap>
+
+    <select id="listBlogs" resultMap="blogHomeResultMap">
+        SELECT
+            a.id,
+            blog_cover,
+            blog_title,
+            SUBSTR( blog_content, 1, 500 ) AS blog_content,
+            a.create_time,
+            a.type,
+            a.is_top,
+            a.category_id,
+            category_name,
+            t.id AS tag_id,
+            t.tag_name
+        FROM
+            (
+                SELECT
+                    id,
+                    blog_cover,
+                    blog_title,
+                    blog_content,
+                    type,
+                    is_top,
+                    create_time,
+                    category_id
+                FROM
+                    tb_blog
+                WHERE is_delete = 0
+                  AND status = 1
+                ORDER BY
+                    is_top DESC,
+                    id DESC
+                    LIMIT #{current} , #{size}
+            ) a
+                JOIN tb_category c ON a.category_id = c.id
+                JOIN tb_blog_tag atg ON a.id = atg.blog_id
+                JOIN tb_tag t ON t.id = atg.tag_id
+        ORDER BY
+            a.is_top DESC,
+            a.id DESC
+    </select>
+
+    <select id="listBlogBacks" resultMap="blogBackResultMap">
+        SELECT
+        a.id,
+        blog_cover,
+        blog_title,
+        type,
+        is_top,
+        a.is_delete,
+        a.status,
+        a.create_time,
+        category_name,
+        t.id AS tag_id,
+        t.tag_name
+        FROM
+        (
+        SELECT
+        id,
+        blog_cover,
+        blog_title,
+        type,
+        is_top,
+        is_delete,
+        status,
+        create_time,
+        category_id
+        FROM
+        tb_blog
+        <where>
+            is_delete = #{condition.isDelete}
+            <if test="condition.keywords != null">
+                and blog_title like concat('%',#{condition.keywords},'%')
+            </if>
+            <if test="condition.status != null">
+                and status = #{condition.status}
+            </if>
+            <if test="condition.categoryId != null">
+                and category_id = #{condition.categoryId}
+            </if>
+            <if test="condition.type != null">
+                and type = #{condition.type}
+            </if>
+            <if test="condition.tagId != null">
+                and id in
+                (
+                SELECT
+                blog_id
+                FROM
+                tb_blog_tag
+                WHERE
+                tag_id = #{condition.tagId}
+                )
+            </if>
+        </where>
+        ORDER BY
+        is_top DESC,
+        id DESC
+        LIMIT #{current},#{size}
+        ) a
+        LEFT JOIN tb_category c ON a.category_id = c.id
+        LEFT JOIN tb_blog_tag atg ON a.id = atg.blog_id
+        LEFT JOIN tb_tag t ON t.id = atg.tag_id
+        ORDER BY
+        is_top DESC,
+        a.id DESC
+    </select>
+
+    <select id="getBlogById" resultMap="blogResultMap">
+        SELECT
+            a.id,
+            blog_cover,
+            blog_title,
+            blog_content,
+            a.type,
+            a.author,
+            a.original_url,
+            a.create_time,
+            a.update_time,
+            a.category_id,
+            category_name,
+            t.id AS tag_id,
+            t.tag_name
+        FROM
+            tb_blog a
+                JOIN tb_category c ON a.category_id = c.id
+                JOIN tb_blog_tag btg ON a.id = btg.blog_id
+                JOIN tb_tag t ON t.id = btg.tag_id
+        WHERE
+            a.id = #{blogId}
+          AND a.is_delete = 0
+          AND a.status = 1
+    </select>
+
+    <select id="listBlogsByCondition" resultMap="blogPreviewResultMap">
+        SELECT
+        a.id,
+        blog_cover,
+        blog_title,
+        a.create_time,
+        a.category_id,
+        category_name,
+        t.id AS tag_id,
+        t.tag_name
+        FROM
+        (
+        SELECT
+        id,
+        blog_cover,
+        blog_title,
+        blog_content,
+        create_time,
+        category_id
+        FROM
+        tb_blog
+        <where>
+            <if test="condition.categoryId != null">
+                category_id = #{condition.categoryId}
+            </if>
+            <if test="condition.tagId != null">
+                id IN (
+                SELECT
+                blog_id
+                FROM
+                tb_blog_tag
+                WHERE
+                tag_id = #{condition.tagId})
+            </if>
+        </where>
+        AND is_delete = 0
+        AND status = 1
+        ORDER BY id DESC
+        LIMIT #{current},#{size}
+        ) a
+        JOIN tb_category c ON a.category_id = c.id
+        JOIN tb_blog_tag atg ON a.id = atg.blog_id
+        JOIN tb_tag t ON t.id = atg.tag_id
+    </select>
+
+</mapper>

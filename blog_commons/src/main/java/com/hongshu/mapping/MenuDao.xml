@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hongshu.dao.MenuDao">
+    <select id="getAllMenuListById" resultType="com.hongshu.entity.Menu">
+        SELECT DISTINCT
+            m.id,
+            `name`,
+            `path`,
+            component,
+            icon,
+            create_time,
+            update_time,
+            order_num,
+            parent_id,
+            is_hidden
+        FROM
+            tb_user_role ur
+                JOIN tb_role_menu rm ON ur.role_id = rm.role_id
+                JOIN `tb_menu` m ON rm.menu_id = m.id
+        WHERE
+            user_id = #{userInfoId}
+    </select>
+
+</mapper>

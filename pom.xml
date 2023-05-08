@@ -5,6 +5,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>blog_gateway</module>
+        <module>blog_commons</module>
+        <module>blog_admin</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -31,7 +33,6 @@
     </properties>
 
     <dependencyManagement>
-
         <dependencies>
             <!-- springCloud -->
             <dependency>
@@ -56,7 +57,6 @@
                 <version>${swagger.version}</version>
             </dependency>
 
-
             <!--nacos的管理依赖-->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
@@ -73,7 +73,7 @@
                 <version>${mysql.version}</version>
             </dependency>
 
-            <!--mybatis-->
+            mybatis
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -104,10 +104,18 @@
                 <artifactId>lombok</artifactId>
             </dependency>
         </dependencies>
-
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <!--mybatis-Plus依赖-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
         <!--springboot起步依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -138,15 +146,21 @@
             <artifactId>commons-codec</artifactId>
             <version>1.15</version>
         </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
-        </dependency>
         <!--引入邮件 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+        <!-- swagger文档 -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.9.2</version>
         </dependency>
     </dependencies>
 
