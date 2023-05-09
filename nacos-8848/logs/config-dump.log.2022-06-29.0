@@ -1,0 +1,10 @@
+2022-06-29 11:40:42,640 INFO [dump-all-ok] aaaa+DEFAULT_GROUP, 1656127342000, length=16, md5=4f518d0c61ab6262038a8b48df77613f
+
+2022-06-29 13:54:42,734 WARN [dump-ignore] ignore to save cache file. groupKey=aaaa+DEFAULT_GROUP, md5=4f518d0c61ab6262038a8b48df77613f, lastModifiedOld=1656127342000, lastModifiedNew=1656127342000
+
+2022-06-29 13:54:42,734 INFO [dump-all-ok] aaaa+DEFAULT_GROUP, 1656127342000, length=16, md5=4f518d0c61ab6262038a8b48df77613f
+
+2022-06-29 19:54:42,709 WARN [dump-ignore] ignore to save cache file. groupKey=aaaa+DEFAULT_GROUP, md5=4f518d0c61ab6262038a8b48df77613f, lastModifiedOld=1656127342000, lastModifiedNew=1656127342000
+
+2022-06-29 19:54:42,709 INFO [dump-all-ok] aaaa+DEFAULT_GROUP, 1656127342000, length=16, md5=4f518d0c61ab6262038a8b48df77613f
+

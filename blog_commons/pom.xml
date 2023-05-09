@@ -18,7 +18,6 @@
     </properties>
 
     <dependencies>
-
         <!-- 缓存依赖 -->
         <!--spring-cache-->
         <dependency>
@@ -35,9 +34,17 @@
             <artifactId>jedis</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.22</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.80</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

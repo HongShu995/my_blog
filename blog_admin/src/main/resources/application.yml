@@ -1,8 +1,55 @@
+#端口配置
+server:
+  port: 8090
+  servlet:
+    session:
+      timeout: 21600
+
+# 数据库连接配置
 spring:
-  # 连接池配置
   datasource:
-    url: jdbc:mysql://192.168.2.100:3306/store_carousel?useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 123456
-    driver-class-name: com.mysql.jdbc.Driver
-    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://192.168.2.100:3306/blog?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+
+  # 邮箱配置
+  mail:
+    host: smtp.qq.com
+    username: 759631477@qq.com
+    password: znkguqlupridbfcj
+    protocol: smtp #发送邮件协议
+    properties.mail.smtp.auth: true   #设置是否需要认证，如果为true,那么用户名和密码就必须的，
+    properties.mail.smtp.port: 465 #设置端口465或者994
+    properties.mail.smtp.starttls.enable: true
+    properties.mail.smtp.starttls.required: true
+    properties.mail.smtp.ssl.enable: true #开启SSL
+    default-encoding: utf-8
+
+  # 文件上传大小设置
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+#mybatis-plus日志
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mappers/*.xml
+
+# 上传模式 （/一定不能去！！！）
+upload:
+  mode: local
+  local:
+    # nginx映射本地文件路径，无域名则为 ip +端口
+    url: http://192.168.2.100:9999/
+    path: /www/wwwroot/resources.xyz/
+
+#Swagger2 host配置
+swagger:
+  host: localhost:8080
+
+# 网站前台域名（邮件通知用）
+website:
+  url: http://120.77.241.193

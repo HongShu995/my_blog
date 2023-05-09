@@ -1,0 +1,76 @@
+2022-06-27 11:43:16,257 INFO notifyConnectTimeout:200
+
+2022-06-27 11:43:16,261 INFO notifySocketTimeout:8000
+
+2022-06-27 11:43:16,261 INFO isHealthCheck:true
+
+2022-06-27 11:43:16,261 INFO maxHealthCheckFailCount:12
+
+2022-06-27 11:43:16,261 INFO maxContent:10485760
+
+2022-06-27 11:43:16,261 INFO spring.datasource.platform:mysql
+
+2022-06-27 11:43:21,685 WARN DumpService start
+
+2022-06-27 11:43:21,686 INFO start clear all config-info.
+
+2022-06-27 11:43:21,688 INFO clear all config-info success.
+
+2022-06-27 11:43:21,688 WARN clear all config-info-tenant failed.
+
+2022-06-27 11:43:21,719 INFO [all-dump] 1 / 1
+
+2022-06-27 11:43:21,719 INFO start clear all config-info-beta.
+
+2022-06-27 11:43:21,720 WARN clear all config-info-beta failed.
+
+2022-06-27 11:43:21,720 WARN clear all config-info-beta-tenant failed.
+
+2022-06-27 11:43:21,721 INFO start clear all config-info-tag.
+
+2022-06-27 11:43:21,721 WARN clear all config-info-tag failed.
+
+2022-06-27 11:43:21,721 WARN clear all config-info-tag-tenant failed.
+
+2022-06-27 11:43:21,726 WARN initialDelay:165
+
+2022-06-27 14:28:21,809 INFO [all-dump] 1 / 1
+
+2022-06-27 19:09:59,837 INFO notifyConnectTimeout:200
+
+2022-06-27 19:09:59,845 INFO notifySocketTimeout:8000
+
+2022-06-27 19:09:59,845 INFO isHealthCheck:true
+
+2022-06-27 19:09:59,845 INFO maxHealthCheckFailCount:12
+
+2022-06-27 19:09:59,845 INFO maxContent:10485760
+
+2022-06-27 19:09:59,845 INFO spring.datasource.platform:mysql
+
+2022-06-27 19:10:05,378 WARN DumpService start
+
+2022-06-27 19:10:05,379 INFO start clear all config-info.
+
+2022-06-27 19:10:05,380 INFO clear all config-info success.
+
+2022-06-27 19:10:05,380 WARN clear all config-info-tenant failed.
+
+2022-06-27 19:10:05,402 INFO [all-dump] 1 / 1
+
+2022-06-27 19:10:05,402 INFO start clear all config-info-beta.
+
+2022-06-27 19:10:05,402 WARN clear all config-info-beta failed.
+
+2022-06-27 19:10:05,402 WARN clear all config-info-beta-tenant failed.
+
+2022-06-27 19:10:05,403 INFO start clear all config-info-tag.
+
+2022-06-27 19:10:05,403 WARN clear all config-info-tag failed.
+
+2022-06-27 19:10:05,403 WARN clear all config-info-tag-tenant failed.
+
+2022-06-27 19:10:05,408 WARN initialDelay:224
+
+2022-06-27 22:54:07,700 INFO [all-dump] 1 / 1
+
