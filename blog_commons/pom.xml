@@ -47,5 +47,11 @@
             <version>1.2.80</version>
             <scope>compile</scope>
         </dependency>
+        <!--mybatis_plus-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.4.3.4</version>
+        </dependency>
     </dependencies>
 </project>

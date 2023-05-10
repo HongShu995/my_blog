@@ -28,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import redis.clients.jedis.Jedis;
 
 import java.util.List;
 import java.util.Objects;
@@ -67,15 +68,35 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> impl
     @Override
     public void register(UserVO user)
     {
+        //创建链接
+        String sCode;
+        String sCount;
+        try (Jedis jedis = new Jedis("192.168.2.100", 6379)) {
+            String username = user.getUsername();
+            sCode = jedis.get("Code:" + username);
+            sCount = jedis.get("Count:" + username);
+        }
+        System.out.println("验证码是："+sCode);
+        System.out.println("次数是："+sCount);
+        //检查注册信息大于是否三次
+        if (Integer.parseInt(sCount)>=3){
+            throw new BlogException("用户注册信息大于三次！请一天后再试");
+        }
+        //检查验证码是否过期
+        if (!user.getCode().equals(sCode)){
+            throw new BlogException("验证码已过期！");
+        }
         // 校验账号是否合法
         if (checkUser(user)) {
             throw new BlogException("邮箱已被注册！");
         }
-        // 检查验证码是否正确
+        // 检查验证码是否正确或者过期
         if (!user.getCode().equals(emailService.getEmailCode().get(user.getUsername())))
         {
             throw new BlogException("验证码错误！");
         }
+
+
         // 新增用户信息
         UserInfo userInfo = UserInfo.builder()
                 .email(user.getUsername())
@@ -97,6 +118,7 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> impl
                 .loginType(LoginTypeEnum.EMAIL.getType())
                 .build();
         userAuthDao.insert(userAuth);
+
     }
 
     @Override

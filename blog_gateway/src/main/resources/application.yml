@@ -1,2 +1,9 @@
-
-
+# 配置网关
+spring:
+  cloud:
+    gateway:
+      routes:
+#        - id: admin-service #路由规则
+#          uri: lb://admin-service #路径的服务名称
+#          predicates:
+#            - Path=/admin/**  # 访问user路径转发用户服务
